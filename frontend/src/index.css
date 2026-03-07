@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  min-height: 100vh;
+}
+
+body {
+  @apply bg-surface text-gray-200 antialiased;
+  background-color: #0f0f12;
+}
