@@ -512,7 +512,7 @@ function AIPickCard({ pick }: { pick: AIPick }) {
 // ---------------------------------------------------------------------------
 // AI Chat Component
 // ---------------------------------------------------------------------------
-function AIChat({ db_context_ready }: { db_context_ready: boolean }) {
+function AIChat(_props: { db_context_ready?: boolean }) {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "ai",
@@ -626,8 +626,6 @@ function AIChat({ db_context_ready }: { db_context_ready: boolean }) {
 // AI Analysis Panel
 // ---------------------------------------------------------------------------
 function AIAnalysisPanel() {
-  const queryClient = useQueryClient();
-
   const {
     data: analysis,
     isLoading,
