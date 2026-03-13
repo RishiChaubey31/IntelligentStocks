@@ -1,4 +1,5 @@
-const API = "/api";
+const BASE = import.meta.env.VITE_API_URL || "";
+const API = `${BASE}/api`;
 
 export async function fetchNews(limit = 50) {
   const res = await fetch(`${API}/news?limit=${limit}`);
