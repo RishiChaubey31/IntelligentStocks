@@ -130,14 +130,14 @@ export default function Dashboard() {
       {/* Market Pulse mini-banner */}
       {pulse && (
         <div className={`rounded-lg border p-3 flex flex-wrap items-center justify-between gap-3 ${pulseMoodColor}`}>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             <span className="text-lg font-bold">
               {(pulse as { mood_score?: number }).mood_score !== undefined
                 ? ((pulse as { mood_score: number }).mood_score > 0 ? "+" : "") + (pulse as { mood_score: number }).mood_score
                 : "—"}
             </span>
             <span className="font-semibold">{(pulse as { mood_label?: string }).mood_label}</span>
-            <span className="text-gray-500 text-xs">|</span>
+            <span className="text-gray-500 text-xs hidden sm:inline">|</span>
             <span className="text-xs text-gray-400">{(pulse as { news_count_6h?: number }).news_count_6h} news in last 6h</span>
             <span className="text-xs text-gray-400">{(pulse as { high_impact_events?: number }).high_impact_events} high-impact events</span>
           </div>
@@ -182,7 +182,7 @@ export default function Dashboard() {
       <div className="rounded-lg bg-card border border-border p-4">
         <h2 className="text-lg font-semibold mb-3">Watchlist</h2>
         <div className="flex gap-2 mb-3">
-          <div className="flex-1 max-w-sm">
+          <div className="flex-1 max-w-full sm:max-w-sm">
             <StockSearch
               value={newTicker}
               onChange={(ticker) => {

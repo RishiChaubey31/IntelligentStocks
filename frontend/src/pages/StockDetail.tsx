@@ -138,7 +138,7 @@ export default function StockDetail() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-4">
+      <div className="flex flex-wrap items-center gap-3 sm:gap-4">
         <Link to="/" className="text-gray-500 hover:text-accent">← Back</Link>
         <h1 className="text-2xl font-bold">
           {(data.ticker as string).replace(/\.(NS|BO)$/, "")}
@@ -226,7 +226,7 @@ export default function StockDetail() {
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="h-1.5 w-20 bg-card rounded-full overflow-hidden">
+                      <div className="h-1.5 w-16 sm:w-20 bg-card rounded-full overflow-hidden">
                         <div
                           className={`h-full ${p.confidence >= 75 ? "bg-emerald-500" : p.confidence >= 55 ? "bg-yellow-500" : "bg-gray-500"}`}
                           style={{ width: `${p.confidence}%` }}

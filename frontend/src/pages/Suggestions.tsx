@@ -118,7 +118,7 @@ export default function Suggestions() {
                 </p>
               )}
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
               <div>
                 <label className="text-xs text-gray-500 block mb-1">Quantity</label>
                 <input
@@ -171,9 +171,9 @@ export default function Suggestions() {
             (holdings as Record<string, unknown>[]).map((h) => (
               <div
                 key={h.id as number}
-                className="flex items-center justify-between p-3 rounded bg-surface border border-border"
+                className="flex flex-wrap items-center gap-3 p-3 rounded bg-surface border border-border"
               >
-                <div>
+                <div className="flex-1 min-w-0">
                   <Link to={`/stock/${h.ticker}`} className="font-medium text-accent hover:underline">
                     {(h.ticker as string).replace(/\.(NS|BO)$/, "")}
                   </Link>

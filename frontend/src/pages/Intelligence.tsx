@@ -364,7 +364,7 @@ function MarketPulseBanner({ pulse }: { pulse: MarketPulse }) {
             <span className={`text-lg font-semibold ${scoreColor}`}>{pulse.mood_label}</span>
           </div>
         </div>
-        <div className="flex gap-6 text-center">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
           <div>
             <p className="text-xs text-gray-500">News (6h)</p>
             <p className="text-lg font-bold text-white">{pulse.news_count_6h}</p>
@@ -547,7 +547,7 @@ function AIChat(_props: { db_context_ready?: boolean }) {
   };
 
   return (
-    <div className="rounded-xl bg-card border border-border flex flex-col" style={{ height: "520px" }}>
+    <div className="rounded-xl bg-card border border-border flex flex-col h-[400px] md:h-[520px]">
       <div className="px-4 py-3 border-b border-border flex items-center gap-2">
         <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
         <span className="font-semibold text-sm">Ask AI Anything</span>
@@ -790,7 +790,7 @@ function AIAnalysisPanel() {
 export default function Intelligence() {
   const queryClient = useQueryClient();
   const [predFilter, setPredFilter] = useState<"all" | "buy" | "sell" | "watch">("all");
-  const [activeTab, setActiveTab] = useState<"predictions" | "events" | "ai">("predictions");
+  const [activeTab, setActiveTab] = useState<"predictions" | "events">("predictions");
   const [minConf, setMinConf] = useState(40);
 
   const { data: pulse, isLoading: pulseLoading } = useQuery<MarketPulse>({
@@ -874,11 +874,24 @@ export default function Intelligence() {
         </div>
       )}
 
+      {/* AI Assistant -- featured at top */}
+      <div className="rounded-xl border border-accent/30 bg-accent/5 p-4 sm:p-5">
+        <div className="flex items-center gap-2 mb-4">
+          <span className="text-accent text-lg">✦</span>
+          <h2 className="text-lg font-bold">AI Assistant</h2>
+          <span className="text-xs text-gray-500">— powered by Gemini</span>
+        </div>
+        <div className="grid lg:grid-cols-2 gap-5">
+          <AIChat db_context_ready={true} />
+          <AIAnalysisPanel />
+        </div>
+      </div>
+
       {/* Tabs */}
-      <div className="flex gap-2 border-b border-border">
+      <div className="flex gap-2 border-b border-border overflow-x-auto">
         <button
           onClick={() => setActiveTab("predictions")}
-          className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+          className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${
             activeTab === "predictions"
               ? "border-accent text-accent"
               : "border-transparent text-gray-400 hover:text-gray-200"
@@ -888,23 +901,13 @@ export default function Intelligence() {
         </button>
         <button
           onClick={() => setActiveTab("events")}
-          className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+          className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${
             activeTab === "events"
               ? "border-accent text-accent"
               : "border-transparent text-gray-400 hover:text-gray-200"
           }`}
         >
           Events ({recentEvents.length})
-        </button>
-        <button
-          onClick={() => setActiveTab("ai")}
-          className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors flex items-center gap-1.5 ${
-            activeTab === "ai"
-              ? "border-accent text-accent"
-              : "border-transparent text-gray-400 hover:text-gray-200"
-          }`}
-        >
-          <span>✦</span> AI Assistant
         </button>
       </div>
 
@@ -913,7 +916,7 @@ export default function Intelligence() {
         <div>
           {/* Filter bar */}
           <div className="flex flex-wrap items-center gap-3 mb-4">
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               {(["all", "buy", "sell", "watch"] as const).map((f) => (
                 <button
                   key={f}
@@ -928,7 +931,7 @@ export default function Intelligence() {
                 </button>
               ))}
             </div>
-            <div className="flex items-center gap-2 ml-auto">
+            <div className="flex items-center gap-2 sm:ml-auto">
               <label className="text-xs text-gray-500">Min confidence:</label>
               <select
                 value={minConf}
@@ -985,14 +988,6 @@ export default function Intelligence() {
               ))}
             </div>
           )}
-        </div>
-      )}
-
-      {/* AI Assistant Tab */}
-      {activeTab === "ai" && (
-        <div className="space-y-6">
-          <AIAnalysisPanel />
-          <AIChat db_context_ready={true} />
         </div>
       )}
 
